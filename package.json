@@ -1,0 +1,13 @@
+{
+  "name": "discord_bot",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "discord_ping_bot.js",
+  "scripts": {
+    "start": "node discord_ping_bot.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

@@ -1,0 +1,8 @@
+# 🇫🇷 Empêche de committer le fichier d’environnement contenant tes secrets
+# 🇬🇧 Prevent committing the environment file with your secrets
+.env
+
+# 🇫🇷 Si tu as généré d’autres fichiers non souhaités (logs, node_modules…)
+# 🇬🇧 Ignore other unwanted files (logs, node_modules…)
+node_modules/
+*.log
