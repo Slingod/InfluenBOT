@@ -111,29 +111,32 @@ async function getTwitchToken() {
 
 // ─── CHECK TWITCH LIVE STATUS / VÉRIFICATION TWITCH ───────────────────
 async function checkTwitch(skipNotify = false) {
-  if (!twitchAccessToken) await getTwitchToken();
-
-  const url = `https://api.twitch.tv/helix/streams?user_login=${TW_CHANNEL}`;
-  const res = await fetch(url, {
-    headers: {
-      'Client-ID': TW_CLIENT_ID,
-      'Authorization': `Bearer ${twitchAccessToken}`
+    if (!twitchAccessToken) await getTwitchToken();
+  
+    const url = `https://api.twitch.tv/helix/streams?user_login=${TW_CHANNEL}`;
+    const res = await fetch(url, {
+      headers: {
+        'Client-ID': TW_CLIENT_ID,
+        'Authorization': `Bearer ${twitchAccessToken}`
+      }
+    });
+    const data = await res.json();
+    console.log('[Twitch API]', data); // <-- Ajout ici pour debug l'API Twitch
+  
+    const isLive = Array.isArray(data.data) && data.data.length > 0;
+  
+    if (isLive && !wasLive) {
+      wasLive = true;
+      if (!skipNotify) {
+        const mention = `<@&${ROLE_ID}>`;
+        await sendNotification(`${mention} Je suis en live ! https://twitch.tv/${TW_CHANNEL}`);  
+        // I'm live! / Je suis en live !
+      }
+    } else if (!isLive) {
+      wasLive = false;
     }
-  });
-  const data = await res.json();
-  const isLive = Array.isArray(data.data) && data.data.length > 0;
-
-  if (isLive && !wasLive) {
-    wasLive = true;
-    if (!skipNotify) {
-      const mention = `<@&${ROLE_ID}>`;
-      await sendNotification(`${mention} Je suis en live ! https://twitch.tv/${TW_CHANNEL}`);  
-      // I'm live! / Je suis en live !
-    }
-  } else if (!isLive) {
-    wasLive = false;
   }
-}
+  
 
 // ─── SEND A MESSAGE TO DISCORD CHANNEL / ENVOI DANS DISCORD ────────────
 async function sendNotification(message) {
