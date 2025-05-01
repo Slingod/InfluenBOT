@@ -8,11 +8,11 @@
 
 ```bash
 # 🇫🇷
-git clone https://github.com/VOTRE-UTILISATEUR/votre-repo-discord-bot.git
+git clone git@github.com:Slingod/InfluenBOT.git
 cd votre-repo-discord-bot
 
 # 🇬🇧
-git clone https://github.com/YOUR-USER/your-discord-bot-repo.git
+git clone git@github.com:Slingod/InfluenBOT.git
 cd your-discord-bot-repo
 ```
 
